@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-deploy-test
+  labels:
+    app: my-back-test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-back-test
+  template:
+    metadata:
+      labels:
+        app: my-back-test
+    spec:
+      containers:
+        - name: front-container
+          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-1
+          ports:
+            - containerPort: 80

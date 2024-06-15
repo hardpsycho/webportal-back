@@ -1,0 +1,34 @@
+name: 'deploy back test argocd'
+on:
+  pull_request:
+    branches: [ develop ]
+    types: [closed]
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 18.x ]
+
+    steps:
+    - uses: actions/checkout@master
+      with:
+        # persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+        fetch-depth: 0             # otherwise, you will fail to push refs to dest repo
+    - name: Update yaml
+      uses: fjogeleit/yaml-update-action@main
+      with:
+        valueFile: 'argocd/test/deployment.yaml'
+        propertyPath: 'spec.template.spec.containers.0.image'
+        value: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-${{ github.event.number }}
+        commitChange: false
+    - name: Commit the changes for argocd
+      run: | 
+        git config --global user.name 'hardpsycho'
+        git config --global user.email 'harddeveloper@outlook.com'
+        git fetch
+        git checkout develop
+        git add .
+        git commit --amend --no-edit
+        git push -f origin develop

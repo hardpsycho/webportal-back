@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: back-deploy-prod
+  labels:
+    app: my-back-prod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-back-prod
+  template:
+    metadata:
+      labels:
+        app: my-back-prod
+    spec:
+      containers:
+        - name: front-container
+          image: dockerhub.timeweb.cloud/hapsy/webportal-back:v0.1-alpha
+          ports:
+            - containerPort: 80

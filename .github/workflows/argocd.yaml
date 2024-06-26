@@ -23,6 +23,13 @@ jobs:
         propertyPath: 'spec.template.spec.containers.0.image'
         value: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-${{ github.event.number }}
         commitChange: false
+    - name: Update yaml 2
+      uses: fjogeleit/yaml-update-action@main
+      with:
+        valueFile: 'argocd/test/deployment.yaml'
+        propertyPath: 'spec.template.spec.initContainers.0.image'
+        value: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-${{ github.event.number }}
+        commitChange: false
     - name: Commit the changes for argocd
       run: | 
         git config --global user.name 'hardpsycho'

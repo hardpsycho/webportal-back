@@ -16,6 +16,17 @@ spec:
     spec:
       containers:
         - name: front-container
-          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-4
+          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-5
           ports:
             - containerPort: 5000
+      initContainers:
+        - name: init-front-container
+          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-5
+          command:
+            - prisma
+            - migrate
+            - dev
+            - sleep 2; done
+          env:
+            - name: DATABASE_URL
+              value: postgresql://postgresadmin:admin123@postgres-test.postgresql.svc.cluster.local:5432/postgresdb-test?schema=public

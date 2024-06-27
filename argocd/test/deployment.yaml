@@ -16,16 +16,16 @@ spec:
     spec:
       containers:
         - name: front-container
-          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-5
+          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-6
           ports:
             - containerPort: 5000
       initContainers:
         - name: init-front-container
-          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-5
+          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-6
           command:
             - prisma
             - migrate
-            - dev
+            - deploy
             - sleep 2; done
           env:
             - name: DATABASE_URL

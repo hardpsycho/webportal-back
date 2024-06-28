@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: front-container
-          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-10
+          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-11
           ports:
             - containerPort: 5000
           env:
@@ -24,7 +24,7 @@ spec:
               value: postgresql://postgresadmin:admin123@postgres-test.postgresql.svc.cluster.local:5432/postgresdb-test?schema=public
       initContainers:
         - name: init-front-container
-          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-10
+          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-11
           command:
             - prisma
             - migrate

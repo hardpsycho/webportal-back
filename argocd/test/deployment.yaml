@@ -26,10 +26,10 @@ spec:
         - name: init-front-container
           image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-11
           command:
+            - npx
             - prisma
             - migrate
             - deploy
-            - sleep 2; done
           env:
             - name: DATABASE_URL
               value: postgresql://postgresadmin:admin123@postgres-test.postgresql.svc.cluster.local:5432/postgresdb-test?schema=public

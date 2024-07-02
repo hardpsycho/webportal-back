@@ -21,7 +21,10 @@ spec:
             - containerPort: 5000
           env:
             - name: DATABASE_URL
-              value: postgresql://postgresadmin:admin123@postgres-test.postgresql.svc.cluster.local:5432/postgresdb-test?schema=public
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-test
+                  key: url
       initContainers:
         - name: init-front-container
           image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-12
@@ -32,4 +35,7 @@ spec:
             - deploy
           env:
             - name: DATABASE_URL
-              value: postgresql://postgresadmin:admin123@postgres-test.postgresql.svc.cluster.local:5432/postgresdb-test?schema=public
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-test
+                  key: url

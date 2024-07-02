@@ -20,9 +20,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install
       run: npm ci
-    - name: 'Create env file'
-      run: |
-        echo "${{ secrets.ENV_FILE }}" > .env
     - name: build test bundle
       if: always()
       run: npm run build

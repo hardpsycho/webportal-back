@@ -19,3 +19,23 @@ spec:
           image: dockerhub.timeweb.cloud/hapsy/webportal-back:v0.1-alpha
           ports:
             - containerPort: 5000
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-prod
+                  key: url
+      initContainers:
+        - name: init-front-container
+          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-12
+          command:
+            - npx
+            - prisma
+            - migrate
+            - deploy
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-prod
+                  key: url

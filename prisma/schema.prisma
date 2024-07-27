@@ -16,4 +16,12 @@ datasource db {
 model User {
   id Int @default(autoincrement())
   email String @unique
+  hash String
+  salt String
+  roles Role[]
+}
+
+enum Role {
+  ADMIN
+  USER
 }

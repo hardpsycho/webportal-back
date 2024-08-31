@@ -10,7 +10,7 @@ export class CookieService {
             httpOnly: true,
             maxAge: 30*60*60*24*1000,
             sameSite: 'lax',
-            path: '/auth/refresh'
+            path: '/auth/refresh',
 
         })
     }
@@ -19,4 +19,3 @@ export class CookieService {
         res.clearCookie(CookieService.lcTokenKey)
     }
 }
-60*60*2

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: front-container
-          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-14
+          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-15
           ports:
             - containerPort: 5000
           env:
@@ -27,7 +27,7 @@ spec:
                   key: url
       initContainers:
         - name: init-front-container
-          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-14
+          image: dockerhub.timeweb.cloud/hapsy/webportal-back:pr-15
           command:
             - npx
             - prisma

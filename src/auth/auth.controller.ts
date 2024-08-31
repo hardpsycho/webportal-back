@@ -15,7 +15,7 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     @ApiCreatedResponse()
     async signUp(@Body() body: SignUpBodyDto, @Res({passthrough: true}) res: Response) {
-        const { accessToken, refreshToken } = await this.authService.signUp(body.email, body.password)
+        const { accessToken, refreshToken } = await this.authService.signUp(body.email, body.password, body.firstName, body.lastName)
 
         console.log('tokens1:', accessToken, 'tokens2:', refreshToken)
 

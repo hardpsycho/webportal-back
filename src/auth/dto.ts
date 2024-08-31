@@ -14,6 +14,16 @@ export class SignUpBodyDto {
     @IsNotEmpty()
     @MinLength(6)
     password!: string
+
+    @ApiProperty({
+        example: 'Петр'
+    })
+    firstName!: string
+
+    @ApiProperty({
+        example: 'Иванов'
+    })
+    lastName!: string
 }
 
 export class SignInBodyDto {

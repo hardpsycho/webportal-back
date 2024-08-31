@@ -3,17 +3,18 @@ import { UsersService } from 'src/users/users.service';
 import { PasswordService } from './password.service';
 import { JwtService } from '@nestjs/jwt';
 import { GetSessionInfoDto } from './dto';
-import { DefaultDeserializer } from 'v8';
+import { ProfilesService } from 'src/profiles/profiles.service';
 
 @Injectable()
 export class AuthService {
     constructor(
         private userService: UsersService,
+        private profileService: ProfilesService,
         private passwordService: PasswordService,
         private jwtService: JwtService
     ) {}
 
-    async signUp(email: string, password: string) {
+    async signUp(email: string, password: string, lastName: string, firstName: string) {
         const user = await this.userService.findByEmail(email)
 
         if (user) {
@@ -24,6 +25,11 @@ export class AuthService {
         const hash = this.passwordService.getHash(password, salt)
 
         const newUser = await this.userService.create(email, hash, salt)
+        await this.profileService.create({
+            lastName,
+            firstName,
+            userId: newUser.id
+        })
         const accessToken = this.jwtService.sign({
             id: newUser.id,
             email: newUser.email
